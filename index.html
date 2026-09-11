@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Egyetemi Vezérlőpult Alap</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="top-navbar">
+        <div class="logo-area">
+            <span class="menu-text">MISKOLCI EGYETEM</span>
+            <i class="fas fa-university logo-icon-only"></i>
+        </div>
+        <div class="top-icons">
+            <i class="fas fa-exclamation-circle"></i>
+            <i class="fas fa-bell"></i>
+            <i class="fas fa-envelope"></i>
+            <i class="fas fa-th"></i>
+            <div class="user-profile">
+                <i class="fas fa-user-circle"></i> Felhasználó Név <i class="fas fa-caret-down"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="layout">
+        <nav class="sidebar">
+            <ul class="menu-list">
+                <li class="active"><a href="index.html" style="color: inherit; text-decoration: none; display: flex; align-items: center; width: 100%; gap: 10px;"><i class="fas fa-tachometer-alt"></i> <span class="menu-text">Vezérlőpult</span></a></li>
+                <li id="search-toggle" style="cursor: pointer; display: flex; align-items: center; width: 100%; gap: 10px;"><i class="fas fa-search"></i> <span class="menu-text">Keresés</span></li>
+                <li><a href="oktatas.html" style="color: inherit; text-decoration: none; display: flex; align-items: center; width: 100%; gap: 10px;"><i class="fas fa-graduation-cap"></i> <span class="menu-text">Oktatás</span> <i class="fas fa-angle-right" style="margin-left:auto"></i></a></li>
+                <li><a href="sportevents.html" style="color: inherit; text-decoration: none; display: flex; align-items: center; width: 100%; gap: 10px;"><i class="fas fa-running"></i> <span class="menu-text">Sportesemények</span> <i class="fas fa-angle-right" style="margin-left:auto"></i></a></li>
+                <li><a href="magazin.html" style="color: inherit; text-decoration: none; display: flex; align-items: center; width: 100%; gap: 10px;"><i class="fas fa-book-open"></i> <span class="menu-text">Magazin</span> <i class="fas fa-angle-right" style="margin-left:auto"></i></a></li>
+            </ul>
+            <div class="sidebar-bottom" id="toggle-sidebar-btn">
+                <i class="fas fa-exchange-alt"></i> <span class="menu-text">Összezárt nézet</span>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <div id="ai-search-wrapper" style="display: none; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+                <div style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 10px; border: 2px solid #3498db;">
+                    <i class="fas fa-robot" style="color: #3498db; font-size: 1.2rem;"></i>
+                    <input type="text" id="ai-search-input" placeholder="Kérdezz az AI asszisztenstől..." style="flex-grow: 1; padding: 10px; border: none; font-size: 1rem; outline: none;">
+                    <button id="ask-ai-btn" style="padding: 10px 20px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Kérdés</button>
+                    <button id="close-search" style="background: none; border: none; cursor: pointer; color: #e74c3c; font-size: 1.2rem; margin-left: 10px;"><i class="fas fa-times"></i></button>
+                </div>
+                <div id="ai-response-box" style="display: none; background: #e8f4f8; padding: 20px; border-radius: 8px; border-left: 5px solid #3498db; color: #2c3e50; line-height: 1.5;"></div>
+            </div>
+
+            <div class="page-header">
+                <div class="page-header-icon"><i class="fas fa-building"></i></div>
+                Vezérlőpult
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="column">
+                    <div class="card">
+                        <div class="card-header">
+                            <span><i class="fas fa-running"></i> Testnevelés teljesítés</span>
+                        </div>
+                        <div class="card-body" style="text-align: center;">
+                            <div style="font-weight: bold; margin-bottom: 5px;">0 / 20</div>
+                            <div style="background-color: #e0e0e0; border-radius: 10px; height: 10px; width: 100%; margin-bottom: 15px; overflow: hidden;">
+                                <div style="background-color: #3498db; width: 0%; height: 100%;"></div>
+                            </div>
+                            <p style="font-size: 0.85rem; text-align: left; margin-bottom: 15px;">
+                                A jelenlegi félévben 0 testnevelés órán vett részt a kötelező 20 órából. Még legalább 20 órán kell részt vennie a kurzus.
+                            </p>
+                            <button style="background-color: #7f8c8d; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; float: left; display: flex; align-items: center; gap: 5px; font-size: 0.85rem;">
+                                <i class="fas fa-list"></i> Részletek
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <span><i class="far fa-calendar-alt"></i> Eseményeim</span>
+                            <i class="fas fa-angle-double-right"></i>
+                        </div>
+                        <div class="card-body" style="text-align: center; color: #999;"><br>There are no upcoming events within a week.</div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="card">
+                        <div class="card-header">
+                            <span><i class="far fa-newspaper"></i> Hírek</span>
+                            <i class="fas fa-angle-double-right"></i>
+                        </div>
+                        <div class="card-body" style="min-height: 350px; display:flex; align-items:center; justify-content:center; background:#eee;">
+                            Nagy képes hír blokk helye...
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="card">
+                        <div class="card-header">
+                            <span><i class="fas fa-bell"></i> Értesítéseim</span>
+                            <i class="fas fa-angle-double-right"></i>
+                        </div>
+                        <div class="card-body">Listás tartalom helye...</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <span><i class="fas fa-exclamation-circle"></i> Kiemelt tartalmak</span>
+                        </div>
+                        <div class="card-body" style="text-align: center; color: #999;"><br>There are no important contents.</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchToggleBtn = document.getElementById('search-toggle');
+            const aiSearchWrapper = document.getElementById('ai-search-wrapper');
+            const aiSearchInput = document.getElementById('ai-search-input');
+            const askAiBtn = document.getElementById('ask-ai-btn');
+            const closeSearchBtn = document.getElementById('close-search');
+            const aiResponseBox = document.getElementById('ai-response-box');
+
+            if (searchToggleBtn) {
+                searchToggleBtn.addEventListener('click', () => {
+                    if (aiSearchWrapper.style.display === 'none') {
+                        aiSearchWrapper.style.display = 'flex';
+                        aiSearchInput.focus();
+                    } else {
+                        closeAiSearch();
+                    }
+                });
+            }
+            if (closeSearchBtn) closeSearchBtn.addEventListener('click', closeAiSearch);
+
+            function closeAiSearch() {
+                aiSearchWrapper.style.display = 'none';
+                aiSearchInput.value = '';
+                aiResponseBox.style.display = 'none';
+            }
+
+            if (askAiBtn && aiSearchInput) {
+                askAiBtn.addEventListener('click', handleAiQuery);
+                aiSearchInput.addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') handleAiQuery();
+                });
+            }
+
+            function handleAiQuery() {
+                const query = aiSearchInput.value.trim();
+                if (query === '') return;
+                aiResponseBox.style.display = 'block';
+                aiResponseBox.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Az AI gondolkodik...';
+                setTimeout(() => {
+                    aiResponseBox.innerHTML = `<strong><i class="fas fa-robot"></i> AI Asszisztens:</strong><br><br>Ezt a választ az előkép kedvéért generáltam a következő kérdésedre: <em>"${query}"</em>. Ha a rendszer élesedik, ide érkezik majd be a valódi szerveroldali mesterséges intelligencia válasza!`;
+                }, 1500); 
+            }
+
+            const toggleSidebarBtn = document.getElementById('toggle-sidebar-btn');
+            const sidebar = document.querySelector('.sidebar');
+            const logoArea = document.querySelector('.logo-area');
+
+            if (toggleSidebarBtn) {
+                toggleSidebarBtn.addEventListener('click', () => {
+                    sidebar.classList.toggle('collapsed');
+                    logoArea.classList.toggle('collapsed');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

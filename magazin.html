@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magazin - Egyetemi Vezérlőpult</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="top-navbar">
+        <div class="logo-area">
+            <span class="menu-text">MISKOLCI EGYETEM</span>
+            <i class="fas fa-university logo-icon-only"></i>
+        </div>
+        <div class="top-icons">
+            <i class="fas fa-bell"></i>
+            <div class="user-profile">
+                <i class="fas fa-user-circle"></i> Felhasználó Név <i class="fas fa-caret-down"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="layout">
+        <nav class="sidebar">
+            <ul class="menu-list">
+                <li><a href="index.html" style="color: inherit; text-decoration: none; display: flex; align-items: center; width: 100%; gap: 10px;"><i class="fas fa-tachometer-alt"></i> <span class="menu-text">Vezérlőpult</span></a></li>
+                <li id="search-toggle" style="cursor: pointer; display: flex; align-items: center; width: 100%; gap: 10px;"><i class="fas fa-search"></i> <span class="menu-text">Keresés</span></li>
+                <li><a href="oktatas.html" style="color: inherit; text-decoration: none; display: flex; align-items: center; width: 100%; gap: 10px;"><i class="fas fa-graduation-cap"></i> <span class="menu-text">Oktatás</span> <i class="fas fa-angle-right" style="margin-left:auto"></i></a></li>
+                <li><a href="sportevents.html" style="color: inherit; text-decoration: none; display: flex; align-items: center; width: 100%; gap: 10px;"><i class="fas fa-running"></i> <span class="menu-text">Sportesemények</span> <i class="fas fa-angle-right" style="margin-left:auto"></i></a></li>
+                <li class="active"><a href="magazin.html" style="color: inherit; text-decoration: none; display: flex; align-items: center; width: 100%; gap: 10px;"><i class="fas fa-book-open"></i> <span class="menu-text">Magazin</span> <i class="fas fa-angle-right" style="margin-left:auto"></i></a></li>
+            </ul>
+            <div class="sidebar-bottom" id="toggle-sidebar-btn">
+                <i class="fas fa-exchange-alt"></i> <span class="menu-text">Összezárt nézet</span>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <div id="ai-search-wrapper" style="display: none; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+                <div style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 10px; border: 2px solid #3498db;">
+                    <i class="fas fa-robot" style="color: #3498db; font-size: 1.2rem;"></i>
+                    <input type="text" id="ai-search-input" placeholder="Kérdezz az AI asszisztenstől..." style="flex-grow: 1; padding: 10px; border: none; font-size: 1rem; outline: none;">
+                    <button id="ask-ai-btn" style="padding: 10px 20px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Kérdés</button>
+                    <button id="close-search" style="background: none; border: none; cursor: pointer; color: #e74c3c; font-size: 1.2rem; margin-left: 10px;"><i class="fas fa-times"></i></button>
+                </div>
+                <div id="ai-response-box" style="display: none; background: #e8f4f8; padding: 20px; border-radius: 8px; border-left: 5px solid #3498db; color: #2c3e50; line-height: 1.5;"></div>
+            </div>
+
+            <div class="page-header" style="height: 150px; background-color: #8e44ad;">
+                <div class="page-header-icon" style="color: #8e44ad;"><i class="fas fa-book-open"></i></div>
+                Egyetemi Magazin és Hírek
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="card">
+                    <div class="card-header">Gólyatábor 2026 beszámoló</div>
+                    <div class="card-body">Képek és élménybeszámolók az idei táborról...</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Kari napok programjai</div>
+                    <div class="card-body">Részletes programtáblázat a jövő heti eseményekről...</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchToggleBtn = document.getElementById('search-toggle');
+            const aiSearchWrapper = document.getElementById('ai-search-wrapper');
+            const aiSearchInput = document.getElementById('ai-search-input');
+            const askAiBtn = document.getElementById('ask-ai-btn');
+            const closeSearchBtn = document.getElementById('close-search');
+            const aiResponseBox = document.getElementById('ai-response-box');
+
+            if (searchToggleBtn) {
+                searchToggleBtn.addEventListener('click', () => {
+                    if (aiSearchWrapper.style.display === 'none') {
+                        aiSearchWrapper.style.display = 'flex';
+                        aiSearchInput.focus();
+                    } else {
+                        closeAiSearch();
+                    }
+                });
+            }
+            if (closeSearchBtn) closeSearchBtn.addEventListener('click', closeAiSearch);
+
+            function closeAiSearch() {
+                aiSearchWrapper.style.display = 'none';
+                aiSearchInput.value = '';
+                aiResponseBox.style.display = 'none';
+            }
+
+            if (askAiBtn && aiSearchInput) {
+                askAiBtn.addEventListener('click', handleAiQuery);
+                aiSearchInput.addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') handleAiQuery();
+                });
+            }
+
+            function handleAiQuery() {
+                const query = aiSearchInput.value.trim();
+                if (query === '') return;
+                aiResponseBox.style.display = 'block';
+                aiResponseBox.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Az AI gondolkodik...';
+                setTimeout(() => {
+                    aiResponseBox.innerHTML = `<strong><i class="fas fa-robot"></i> AI Asszisztens:</strong><br><br>Válasz a kérdésre: <em>"${query}"</em>. Mivel ez a Magazin oldal, egyetemi hírekkel, beszámolókkal kapcsolatban böngészek neked!`;
+                }, 1500); 
+            }
+
+            const toggleSidebarBtn = document.getElementById('toggle-sidebar-btn');
+            const sidebar = document.querySelector('.sidebar');
+            const logoArea = document.querySelector('.logo-area');
+
+            if (toggleSidebarBtn) {
+                toggleSidebarBtn.addEventListener('click', () => {
+                    sidebar.classList.toggle('collapsed');
+                    logoArea.classList.toggle('collapsed');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
