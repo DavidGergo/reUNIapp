@@ -233,3 +233,102 @@ body {
 .logo-area.collapsed .logo-icon-only {
     display: block; /* Összecsukva csak egy egyetemes ikon/rövidítés látszik */
 }
+
+/* ========================================= */
+/* --- MOBIL NÉZET (Reszponzivitás) --- */
+/* ========================================= */
+
+@media (max-width: 768px) {
+    /* 1. A fő elrendezés (rács) 1 oszlopos lesz */
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* 2. Felső sáv zsúfoltságának csökkentése */
+    .top-navbar {
+        padding: 0 10px;
+    }
+    
+    .logo-area {
+        width: auto;
+        font-size: 1rem;
+    }
+
+    /* Elrejtünk pár felesleges ikont a felső sávból telefonon */
+    .top-icons .fa-envelope,
+    .top-icons .fa-th,
+    .top-icons .fa-exclamation-circle {
+        display: none;
+    }
+
+    /* Felhasználó nevének elrejtése, csak az ikon marad */
+    .user-profile {
+        font-size: 0;
+        background: transparent;
+        padding: 5px;
+    }
+    .user-profile .fa-user-circle {
+        font-size: 1.5rem;
+    }
+    .user-profile .fa-caret-down {
+        display: none;
+    }
+
+    /* 3. Oldalsávból "Mobil App" stílusú alsó navigáció lesz */
+    .sidebar {
+        width: 100% !important;
+        height: 60px;
+        flex-direction: row;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+    }
+
+    .menu-list {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0;
+    }
+
+    .menu-list li {
+        padding: 10px;
+        border: none !important;
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+    }
+
+    .menu-list li a {
+        justify-content: center;
+        gap: 0; /* Ne legyen rés a hiányzó szöveg miatt */
+    }
+
+    /* Aktív menüpont mobil dizájnja */
+    .menu-list li.active {
+        margin: 0 5px;
+        border-radius: 8px;
+    }
+
+    /* Szövegek, nyilak és az összecsukó gomb elrejtése alul */
+    .sidebar .menu-text,
+    .sidebar .fa-angle-right,
+    .sidebar-bottom {
+        display: none !important;
+    }
+
+    /* 4. Fő tartalom igazítása, hogy ne lógjon be az alsó menü alá */
+    .main-content {
+        padding-bottom: 80px; 
+    }
+
+    /* A borítókép kisebb lesz mobilokon */
+    .page-header {
+        height: auto;
+        padding: 20px 15px;
+        font-size: 1.2rem;
+    }
+}
